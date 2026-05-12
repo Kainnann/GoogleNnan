@@ -1,0 +1,41 @@
+ Fornecimento dos Dados de Entrada
+
+O programa faz a leitura e indexação de arquivos de texto (.txt) localizados em uma pasta  que é informada pelo usuario durante a execução.
+
+Quando o programa iniciar, vai aparecer a mensagem: 
+
+Digite o caminho da pasta:
+
+Aqui o usuário deve informar o caminho da pasta que contém os arquivos .txt que ele quer processar.
+
+Exemplos de entrada
+
+ Se a pasta  esta localizada no mesmo diretório do programa:
+textos
+ou
+../textos
+
+Se a pasta localizada em outro local do computador:
+C:\Livros
+
+Se a pasta em pendrive ou HD externo:
+D:\Biblioteca
+
+Funcionamento
+
+Depois disso o programa vai percorrer automaticamente todos os arquivos .txt da pasta, fazer a indexação das palavras e 
+permitir que o usuário faça pesquisas pelos termos desejados. 
+
+Observações
+
+Apenas arquivos com extensão .txt são processados.
+Os arquivos não precisam estar na mesma pasta do programa.
+Quanto maior a quantidade de arquivos, maior será o tempo de indexação inicial.
+
+Exemplo de uso
+
+Digite o caminho da pasta: C:\Livros
+Após a indexação:
+Pesquise o termo (ou sair): amor
+O programa mostrará os arquivos e trechos onde a palavra pesquisada foi encontrada.
+
