@@ -2,6 +2,11 @@
 
 ```bash
 
+Como Compilar:
+Bash
+
+gcc main.c indexador.c -o programa
+
  Fornecimento dos Dados de Entrada
 
 O programa faz a leitura e indexação de arquivos de texto (.txt) localizados em uma pasta  que é informada pelo usuario durante a execução.
