@@ -139,13 +139,134 @@ static void mostrarTrecho(char arquivo[], long offset){
 }
 
 // busca principal
+
+// busca palavras pequenas fora da hash
+static void buscarSobDemanda(char pasta[], char termo[]){
+
+    DIR *dir = opendir(pasta);
+
+    if(dir == NULL){
+
+        return;
+    }
+
+    struct dirent *arquivo;
+
+    int encontrou = 0;
+
+
+    while((arquivo = readdir(dir)) != NULL){
+
+        if(ehTxt(arquivo->d_name)){
+
+            char caminhoArquivo[520];
+
+            sprintf(caminhoArquivo, "%s/%s", pasta, arquivo->d_name);
+
+
+            FILE *fp = fopen(caminhoArquivo, "r");
+
+            if(fp == NULL){
+
+                continue;
+            }
+
+
+            char palavra[51];
+
+            int letra;
+
+            int i;
+
+            long inicio;
+
+
+            while((letra = fgetc(fp)) != EOF){
+
+                if(isalnum(letra)){
+
+                    inicio = ftell(fp) - 1;
+
+                    i = 0;
+
+                    palavra[i++] = letra;
+
+
+                    while((letra = fgetc(fp)) != EOF && isalnum(letra)){
+
+                        if(i < 50){
+
+                            palavra[i++] = letra;
+                        }
+                    }
+
+                    palavra[i] = '\0';
+
+
+                    char temp[51];
+
+                    strcpy(temp, palavra);
+
+                    limparPalavra(temp);
+
+
+                    if(strcmp(temp, termo) == 0){
+
+                        mostrarTrecho(caminhoArquivo, inicio);
+
+                        encontrou = 1;
+                    }
+                }
+            }
+
+            fclose(fp);
+        }
+    }
+
+    closedir(dir);
+
+
+    if(!encontrou){
+
+        printf("\nPalavra nao encontrada!\n");
+    }
+}
+
+// busca principal
 void buscarTermo(char pasta[], char termo[]){
+
     limparPalavra(termo);
+
+
+    // palavras pequenas ficam fora da hash
+    if(strlen(termo) < 5){
+
+        printf("\nBuscando termo curto fora da hash...\n");
+
+        buscarSobDemanda(pasta, termo);
+
+        return;
+    }
+
+
     Palavra *palavra = buscarPalavra(termo);
-    if(palavra == NULL){ printf("\nPalavra nao encontrada!\n"); return; }
+
+
+    if(palavra == NULL){
+
+        printf("\nPalavra nao encontrada!\n");
+
+        return;
+    }
+
+
     Local *aux = palavra->locais;
+
+
     while(aux != NULL){
+
         mostrarTrecho(aux->nomeArquivo, aux->offset);
+
         aux = aux->prox;
     }
 }

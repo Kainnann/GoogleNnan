@@ -22,8 +22,7 @@ int main(){
         if(strcmp(termo, "sair") == 0) break;
 
         buscarTermo(pasta, termo);
-        printf("\nPrecione Enter para continuar...");
-        getchar();
+        printf("\nPesquise o termo (ou sair): ");
     }
 
     liberarHash();
